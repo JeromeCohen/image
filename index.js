@@ -1,9 +1,10 @@
 const express = require('express');
+const cron = require('node-cron');
 const mongoose = require('mongoose');
 const axios = require('axios');
 const app = express();
 const bodyParser = require('body-parser');
-const sendRoutes = require('./send.js');
+const sendRoutes = require('./routes/send.js');
 const PORT = process.env.PORT || 3000;
 
 
@@ -20,7 +21,17 @@ db.once('open', function() {
   });
 });
 
-//create Mongoose text model with function to send
+//Cron Job to Check DB for Texts to Send
+cron.schedule('0 0 0 * * *', () => {
+  console.log('We got cron boiiiiiiii');
+
+  //check DB for texts to send
+
+  //pull twilio api until all texts are sent with random intervals
+})
+
+  //figure out how to pause cron when text load is at 0
+
 // client.messages.create({
 //     body: 'Hello from Node',
 //     to: '+17324031686',  // Text this number

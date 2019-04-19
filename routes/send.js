@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const twilio = require('twilio');
 const axios = require('axios');
-const message = require('../models/message').message; 
+const Message = require('../models/message.js');
 
-var accountSid = 'AC9ff4d4036316537316e6b77c1556a52c'; // Your Account SID from www.twilio.com/console
-var authToken = '753c9eedc58e1c2a1884e6aad70e29d0';   // Your Auth Token from www.twilio.com/console
-var searchKey = 'AIzaSyAYOZJNaZqTF3R8fSCgxfCb1EcuQTUSVxI';
-var cx = '000252337303238366922:s1-wjnyqrju';
+var accountSid = process.env.TWILIO_ACCOUNT; // Your Account SID from www.twilio.com/console
+var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
+var searchKey = process.env.SEARCH_KEY;
+var cx = process.env.CX;
 var client = new twilio(accountSid, authToken);
 
 router.post('/', (req, res) => {
@@ -25,10 +25,22 @@ router.post('/', (req, res) => {
     }
   })
   .then(response => {
-    console.log(req.body);
     data = response.data;
+
+    var date = new Date();
     for (item in data.items) {
-      console.log(data.items[item].link);
+      date.setDate(date.getDate() + 1);
+      console.log(date);
+
+      const m = new Message({
+        recepient: recepient,
+        mediaUrl: data.items[item].link,
+        date: new Date(date)
+      });
+
+      console.log('Date from m')
+      console.log(m.date);
+      m.save();
     }
     res.send(response.data);
   })
