@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const twilio = require('twilio');
 const axios = require('axios');
 const Message = require('../models/message.js');
+const searchKey = process.env.SEARCH_KEY;
+const cx = process.env.CX;
 
-var accountSid = process.env.TWILIO_ACCOUNT; // Your Account SID from www.twilio.com/console
-var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
-var searchKey = process.env.SEARCH_KEY;
-var cx = process.env.CX;
-var client = new twilio(accountSid, authToken);
 
 router.post('/', (req, res) => {
   const { queryText } = req.body;
