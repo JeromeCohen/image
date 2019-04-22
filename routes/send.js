@@ -5,12 +5,12 @@ const Message = require('../models/message.js');
 const searchKey = process.env.SEARCH_KEY;
 const cx = process.env.CX;
 
-
 router.post('/', (req, res) => {
   const { queryText } = req.body;
   const { recepient } = req.body;
   const { count } = req.body;
 
+  //google custom search, get image urls
   query = "https://www.googleapis.com/customsearch/v1?"
   axios.get(query, {
     params: {
@@ -24,9 +24,10 @@ router.post('/', (req, res) => {
     data = response.data;
 
     var date = new Date();
+
+    //queue messages to send in DB 
     for (item in data.items) {
       date.setDate(date.getDate() + 1);
-      console.log(date);
 
       const m = new Message({
         recepient: recepient,
@@ -34,8 +35,6 @@ router.post('/', (req, res) => {
         date: new Date(date)
       });
 
-      console.log('Date from m')
-      console.log(m.date);
       m.save();
     }
     res.send(response.data);
