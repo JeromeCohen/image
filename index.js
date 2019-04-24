@@ -11,7 +11,7 @@ const sender = require('./sendMessages.js');
 const PORT = process.env.PORT || 3000;
 
 //Set up DB
-mongoose.connect('mongodb://localhost/imageDB', {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -35,7 +35,7 @@ app.use(function(req, res, next) {
 });
 app.use('/send', sendRoutes);
 app.get('/', (req, res) => {
-	res.sendFile('index.html');
+	res.sendFile('iindex.html');
 });
 app.listen(PORT , () => {
 	console.log(`Listening on port ${PORT}`);
