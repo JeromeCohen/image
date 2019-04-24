@@ -20,9 +20,10 @@ db.once('open', function() {
 });
 
 //Cron Job to Check DB for Texts to Send
-cron.schedule('0 0 0 * * *', () => {
-  sender.clearQueue();
-})
+//Not necessary currently - using Heroku scheduler
+// cron.schedule('0 0 0 * * *', () => {
+//   sender.clearQueue();
+// })
 
 //Routes Boilerplate
 app.use(bodyParser.json());
