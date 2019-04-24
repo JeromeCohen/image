@@ -6,7 +6,7 @@ $(function (){
 
     //API request
     $.ajax({
-      url: 'http://localhost:3000/send',
+      url: 'https://jc-image.herokuapp.com/send',
       type: 'POST',
       data: JSON.stringify({recepient: recepient, queryText: queryText, count: 10}),
       contentType: "application/json; charset=utf-8",
@@ -17,6 +17,7 @@ $(function (){
 
     },
     error: function(request, error) {
+      console.log('bruh');
       console.log(error);
     }
     });
