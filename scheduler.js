@@ -1,5 +1,7 @@
 //For Heroku scheduler instead of cron
 const sender = require('./sendMessages.js');
+const mongoose = require('mongoose');
+
 
 mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
 

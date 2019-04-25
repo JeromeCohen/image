@@ -3,7 +3,7 @@ const accountSid = process.env.TWILIO_ACCOUNT; // Your Account SID from www.twil
 const authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
 const client = require('twilio')(accountSid, authToken);
 
-//need to build in async, wait
+//need to build in async, wait, as well as deleting DB objects once sent (put in then)
 
 module.exports = {
   clearQueue: () => {
