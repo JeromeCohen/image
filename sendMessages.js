@@ -7,6 +7,9 @@ const client = require('twilio')(accountSid, authToken);
 
 module.exports = {
   clearQueue: () => {
+    //TO REMOVE
+    console.log('Clearing the Queue');
+
     //Testing mongodb queries
     const today = new Date();
     today.setHours(0, 0, 0 ,0);
