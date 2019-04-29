@@ -1,5 +1,5 @@
 //For Heroku scheduler instead of cron
-const sender = require('./sendMessages.js');
+const clearQueue = require('./sendMessages.js');
 const mongoose = require('mongoose');
 
 
@@ -11,4 +11,4 @@ db.once('open', function() {
   console.log('open')
 });
 
-sender.clearQueue();
+clearQueue();

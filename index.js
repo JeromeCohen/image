@@ -7,7 +7,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const sendRoutes = require('./routes/send.js');
 const Message = require('./models/message.js');
-const sender = require('./sendMessages.js');
+const clearQueue = require('./sendMessages.js');
 const PORT = process.env.PORT || 3000;
 
 //Set up DB
@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
 });
 app.use('/send', sendRoutes);
 app.get('/', (req, res) => {
-	res.sendFile('iindex.html');
+	res.sendFile('index.html');
 });
 app.listen(PORT , () => {
 	console.log(`Listening on port ${PORT}`);

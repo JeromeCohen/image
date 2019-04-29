@@ -21,27 +21,33 @@ router.post('/', (req, res) => {
     }
   })
   .then(response => {
-    data = response.data;
-
-    var date = new Date();
-
-    //queue messages to send in DB 
-    for (item in data.items) {
-      date.setDate(date.getDate() + 1);
-
-      const m = new Message({
-        recepient: recepient,
-        mediaUrl: data.items[item].link,
-        date: new Date(date)
-      });
-
-      m.save();
-    }
+    saveMessage(response.data, recepient);
     res.send(response.data);
   })
   .catch(err => {
-    console.log(err);
-  })
+  console.log(err);
+  });
 });
+
+const saveMessage = (data, recepient) => {
+  console.log('NEW');
+  console.log(data.items);
+  var date = new Date();
+
+  //queue messages to send in DB
+  index = 0;
+  data.items.map((item) => {
+    date.setDate(date.getDate() + 1);
+
+    const m = new Message({
+      recepient: recepient,
+      mediaUrl: data.items[index].link,
+      date: new Date(date)
+    });
+
+    index++;
+    m.save();
+  });
+}
 
 module.exports = router;
