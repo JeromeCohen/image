@@ -30,7 +30,7 @@ const clearQueue = () => {
   });
 
   cursor.on('close', function() {
-      await db.collection('messages').deleteMany({ date: {$gte: today, $lt: tomorrow}});
+      db.collection('messages').deleteMany({ date: {$gte: today, $lt: tomorrow}});
       console.log('Stream Finished');
   });
 }
