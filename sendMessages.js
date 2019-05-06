@@ -1,4 +1,6 @@
 const Message = require('./models/message.js');
+const mongoose = require('mongoose');
+const db = mongoose.connection;
 const accountSid = process.env.TWILIO_ACCOUNT; // Your Account SID from www.twilio.com/console
 const authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
 const client = require('twilio')(accountSid, authToken);
@@ -28,6 +30,7 @@ const clearQueue = () => {
   });
 
   cursor.on('close', function() {
+      await db.collection('messages').deleteMany({ date: {$gte: today, $lt: tomorrow}});
       console.log('Stream Finished');
   });
 }
